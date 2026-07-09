@@ -22,7 +22,7 @@ public class TaskManager {
     // Método para listar todas as tarefas com seus respectivos índices
     public void listarTarefas() {
         if (listaDeTarefas.isEmpty()) {
-            System.out.println("Nenhuma tarefa cadastrada até o momento.");
+            System.out.println("Nenhuma tarefa cadastrada ate o momento.");
             return;
         }
         
@@ -43,7 +43,7 @@ public class TaskManager {
             return true;
         }
         
-        System.out.println("Erro: Índice de tarefa inválido.");
+        System.out.println("Erro: Índice de tarefa invalido.");
         return false;
     }
 
@@ -57,7 +57,7 @@ public class TaskManager {
             return true;
         }
         
-        System.out.println("Erro: Índice de tarefa inválido.");
+        System.out.println("Erro: Indice de tarefa invalido.");
         return false;
     }
 

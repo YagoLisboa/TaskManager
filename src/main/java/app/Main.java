@@ -3,15 +3,14 @@ package app;
 import controller.TaskManager;
 import java.util.Scanner;
 import model.Tarefa;
+import model.TarefaPrioritaria;
 
 public class Main {
     public static void main(String[] args) {
-        // Inicializa o Scanner para leitura do console e o TaskManager para controle das tarefas
         Scanner scanner = new Scanner(System.in);
         TaskManager manager = new TaskManager();
         int opcao = 0;
 
-        // O menu funciona em loop até que o usuário selecione a opção 5 (Sair)
         do {
             System.out.println("\n===== GERENCIADOR DE TAREFAS =====");
             System.out.println("1. Criar nova tarefa");
@@ -21,15 +20,14 @@ public class Main {
             System.out.println("5. Sair");
             System.out.print("Escolha uma opcao: ");
 
-            // Tratamento básico inicial para evitar que o programa quebre se o usuário digitar letras
             if (!scanner.hasNextInt()) {
                 System.out.println("Por favor, digite um numero valido.");
-                scanner.next(); // Limpa a entrada inválida do scanner
+                scanner.next(); 
                 continue;
             }
 
             opcao = scanner.nextInt();
-            scanner.nextLine(); // Consome a quebra de linha deixada pelo nextInt()
+            scanner.nextLine(); // Limpa o buffer
 
             switch (opcao) {
                 case 1:
@@ -38,8 +36,24 @@ public class Main {
                     System.out.print("Digite a descricao da tarefa: ");
                     String descricao = scanner.nextLine();
                     
-                    Tarefa novaTarefa = new Tarefa(titulo, descricao);
-                    manager.adicionarTarefa(novaTarefa);
+                    // Submenu para escolher o tipo de tarefa (Polimorfismo na prática)
+                    System.out.println("Tipo de tarefa: [1] Comum | [2] Prioritaria");
+                    System.out.print("Escolha o tipo: ");
+                    int tipo = scanner.nextInt();
+                    scanner.nextLine(); // Limpa o buffer
+                    
+                    if (tipo == 2) {
+                        System.out.print("Digite a prioridade (Alta/Media/Baixa): ");
+                        String prioridade = scanner.nextLine();
+                        
+                        // Instancia a subclasse
+                        TarefaPrioritaria novaPrioritaria = new TarefaPrioritaria(titulo, descricao, prioridade);
+                        manager.adicionarTarefa(novaPrioritaria);
+                    } else {
+                        // Instancia a classe mãe padrão
+                        Tarefa novaComum = new Tarefa(titulo, descricao);
+                        manager.adicionarTarefa(novaComum);
+                    }
                     break;
 
                 case 2:
@@ -55,7 +69,7 @@ public class Main {
                     } else {
                         System.out.println("Entrada invalida.");
                     }
-                    scanner.nextLine(); // Limpa o buffer
+                    scanner.nextLine(); 
                     break;
 
                 case 4:
@@ -67,7 +81,7 @@ public class Main {
                     } else {
                         System.out.println("Entrada invalida.");
                     }
-                    scanner.nextLine(); // Limpa o buffer
+                    scanner.nextLine(); 
                     break;
 
                 case 5:
@@ -81,6 +95,6 @@ public class Main {
 
         } while (opcao != 5);
 
-        scanner.close(); // Fecha o recurso do scanner de forma segura
+        scanner.close();
     }
 }
