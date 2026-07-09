@@ -60,14 +60,44 @@ public class Main {
                     manager.listarTarefas();
                     break;
 
+//                case 3:
+//                    manager.listarTarefas();
+//                    System.out.print("Digite o numero da tarefa que deseja concluir: ");
+//                    if (scanner.hasNextInt()) {
+//                        int idxConcluir = scanner.nextInt();
+//                        manager.concluirTarefa(idxConcluir);
+//                    } else {
+//                        System.out.println("Entrada invalida.");
+//                    }
+//                    scanner.nextLine(); 
+//                    break;
+//
+//                case 4:
+//                    manager.listarTarefas();
+//                    System.out.print("Digite o numero da tarefa que deseja remover: ");
+//                    if (scanner.hasNextInt()) {
+//                        int idxRemover = scanner.nextInt();
+//                        manager.removerTarefa(idxRemover);
+//                    } else {
+//                        System.out.println("Entrada invalida.");
+//                    }
+//                    scanner.nextLine(); 
+//                    break;
+                    
                 case 3:
                     manager.listarTarefas();
                     System.out.print("Digite o numero da tarefa que deseja concluir: ");
                     if (scanner.hasNextInt()) {
                         int idxConcluir = scanner.nextInt();
-                        manager.concluirTarefa(idxConcluir);
+                        // O bloco try tenta executar o código que pode falhar
+                        try {
+                            manager.concluirTarefa(idxConcluir);
+                        } catch (exceptions.TarefaInvalidaException e) {
+                            // O catch captura a nossa exceção customizada e exibe a mensagem amigável
+                            System.err.println("Erro de Operacao: " + e.getMessage());
+                        }
                     } else {
-                        System.out.println("Entrada invalida.");
+                        System.out.println("Por favor, insira um numero inteiro.");
                     }
                     scanner.nextLine(); 
                     break;
@@ -77,9 +107,13 @@ public class Main {
                     System.out.print("Digite o numero da tarefa que deseja remover: ");
                     if (scanner.hasNextInt()) {
                         int idxRemover = scanner.nextInt();
-                        manager.removerTarefa(idxRemover);
+                        try {
+                            manager.removerTarefa(idxRemover);
+                        } catch (exceptions.TarefaInvalidaException e) {
+                            System.err.println("Erro de Operacao: " + e.getMessage());
+                        }
                     } else {
-                        System.out.println("Entrada invalida.");
+                        System.out.println("Por favor, insira um numero inteiro.");
                     }
                     scanner.nextLine(); 
                     break;
@@ -89,7 +123,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("Opcao invalida! Escolha uma opção de 1 a 5.");
+                    System.out.println("Opcao invalida! Escolha uma opcao de 1 a 5.");
                     break;
             }
 

@@ -33,32 +33,56 @@ public class TaskManager {
         }
     }
 
-    // Método para marcar uma tarefa específica como concluída baseado no índice do menu
-    public boolean concluirTarefa(int indice) {
-        int indiceReal = indice - 1; // Ajusta a lógica de 1-based para 0-based do ArrayList
+//    // Método para marcar uma tarefa específica como concluída baseado no índice do menu
+//    public boolean concluirTarefa(int indice) {
+//        int indiceReal = indice - 1; // Ajusta a lógica de 1-based para 0-based do ArrayList
+//        
+//        if (validarIndice(indiceReal)) {
+//            listaDeTarefas.get(indiceReal).setConcluida(true);
+//            System.out.println("Tarefa '" + listaDeTarefas.get(indiceReal).getTitulo() + "' marcada como concluída!");
+//            return true;
+//        }
+//        
+//        System.out.println("Erro: Índice de tarefa invalido.");
+//        return false;
+//    }
+//
+//    // Método para remover uma tarefa da lista baseado no índice
+//    public boolean removerTarefa(int indice) {
+//        int indiceReal = indice - 1; // Ajusta para o padrão do ArrayList
+//        
+//        if (validarIndice(indiceReal)) {
+//            Tarefa removida = listaDeTarefas.remove(indiceReal);
+//            System.out.println("Tarefa '" + removida.getTitulo() + "' removida com sucesso!");
+//            return true;
+//        }
+//        
+//        System.out.println("Erro: Indice de tarefa invalido.");
+//        return false;
+//    }
+    
+    // Método atualizado para lançar a exceção customizada
+    public void concluirTarefa(int indice) throws exceptions.TarefaInvalidaException {
+        int indiceReal = indice - 1;
         
-        if (validarIndice(indiceReal)) {
-            listaDeTarefas.get(indiceReal).setConcluida(true);
-            System.out.println("Tarefa '" + listaDeTarefas.get(indiceReal).getTitulo() + "' marcada como concluída!");
-            return true;
+        if (!validarIndice(indiceReal)) {
+            throw new exceptions.TarefaInvalidaException("O numero de tarefa " + indice + " nao existe na lista!");
         }
         
-        System.out.println("Erro: Índice de tarefa invalido.");
-        return false;
+        listaDeTarefas.get(indiceReal).setConcluida(true);
+        System.out.println("Tarefa '" + listaDeTarefas.get(indiceReal).getTitulo() + "' marcada como concluida!");
     }
 
-    // Método para remover uma tarefa da lista baseado no índice
-    public boolean removerTarefa(int indice) {
-        int indiceReal = indice - 1; // Ajusta para o padrão do ArrayList
+    // Método atualizado para lançar a exceção customizada
+    public void removerTarefa(int indice) throws exceptions.TarefaInvalidaException {
+        int indiceReal = indice - 1;
         
-        if (validarIndice(indiceReal)) {
-            Tarefa removida = listaDeTarefas.remove(indiceReal);
-            System.out.println("Tarefa '" + removida.getTitulo() + "' removida com sucesso!");
-            return true;
+        if (!validarIndice(indiceReal)) {
+            throw new exceptions.TarefaInvalidaException("Nao foi possível remover: o numero " + indice + " eh invalido!");
         }
         
-        System.out.println("Erro: Indice de tarefa invalido.");
-        return false;
+        Tarefa removida = listaDeTarefas.remove(indiceReal);
+        System.out.println("Tarefa '" + removida.getTitulo() + "' removida com sucesso!");
     }
 
     // Método auxiliar (privado) para validar se o índice existe na lista
