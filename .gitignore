@@ -1,0 +1,24 @@
+# Compilados do Java
+*.class
+*.bluej
+*.pkg
+
+# Arquivos de log e empacotamento do Maven
+target/
+*.war
+*.ear
+*.jar
+*.nar
+*.policy
+
+# Arquivos específicos do NetBeans
+nbproject/ private/
+build/
+nbbuild/
+dist/
+nb-configuration.xml
+.nb-gradle/
+
+# Arquivos de sistema operacional (opcional, mas recomendado)
+.DS_Store
+Thumbs.db
